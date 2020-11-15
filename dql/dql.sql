@@ -157,3 +157,131 @@ SELECT *
 FROM employees
 WHERE department_id 
 LIKE '1__';
+
+#3.排序查询
+
+#desc降序
+#查询员工信息，要求工资从高到低排序
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+
+#asc升序
+#查询员工信息，要求工资从低到高排序
+SELECT *
+FROM employees
+ORDER BY salary ASC;
+
+#升序
+#查询员工信息，要求工资从低到高排序
+SELECT *
+FROM employees
+ORDER BY salary;
+
+#查询部门编号>=90的员工信息，按入职时间的先后进行排序
+SELECT *
+FROM employees
+WHERE department_id >= 90
+ORDER BY hiredate ASC;
+
+#按表达式排序-按年薪的高低显示员工的信息和年薪
+SELECT *, salary*12*(1+IFNULL(commission_pct,0)) 年薪
+FROM employees
+ORDER BY salary*12*(1+IFNULL(commission_pct,0)) DESC;
+
+#按表达式别名排序-按年薪的高低显示员工的信息和年薪
+SELECT *, salary*12*(1+IFNULL(commission_pct,0)) 年薪
+FROM employees
+ORDER BY 年薪 DESC;
+
+#按函数排序-按姓名的长度显示员工的姓名和工资
+SELECT LENGTH(first_name) 字节长度, first_name, salary
+FROM employees
+ORDER BY LENGTH(first_name) DESC;
+
+#按照多个字段排序-查询员工信息，要求先按工资升序，再按员工编号降序
+SELECT *
+FROM employees
+ORDER BY salary ASC, employee_id DESC;
+
+#工资不在20000到40000之间的员工姓名和工资，按工资降序。
+SELECT first_name, salary
+FROM employees
+WHERE salary not BETWEEN 20000 AND 40000
+ORDER BY salary DESC;
+
+#查询邮箱中包含pku的员工信息，并先按邮箱的字节数降序，再按部门号升序。
+SELECT *, LENGTH(email) AS 邮箱长度
+FROM employees
+WHERE email LIKE '%pku%'
+ORDER BY LENGTH(email) DESC,
+department_id
+ASC;
+
+#字符函数
+#LENGTH
+SELECT LENGTH('ShuwenHe');
+SELECT LENGTH('何书文');
+SHOW VARIABLES LIKE '%char%';
+
+#拼接字符串
+SELECT CONCAT(first_name,'_',last_name)
+FROM employees;
+
+#UPPER和LOWER函数
+#将first_name小写，last_name大写，并拼接
+SELECT CONCAT(LOWER(first_name),UPPER(last_name))
+FROM employees;
+
+#SUBSTR截取子串
+SELECT SUBSTRING('何书文何睿轩何睿昂',7);
+SELECT SUBSTRING('何书文何睿轩何睿昂',4,3);
+
+#姓名中名首字母大写，其他字符小写然后用_拼接，显示出来
+SELECT CONCAT(UPPER(SUBSTRING(first_name,1,1)),LOWER(SUBSTRING(first_name,2)))
+FROM employees;
+
+#INSTR返回子串索引
+SELECT INSTR('何书文何睿轩何睿昂','何睿轩');
+
+#TRIM移除字符串两侧的空白字符
+SELECT TRIM('   何书文   ');
+
+#TRIM移除字符串两侧的指定字符
+SELECT TRIM('a' FROM 'aaa何a书a文aaa');
+
+#TRIM移除字符串两侧的指定字符
+SELECT TRIM('aa' FROM 'aaa何a书a文aaa');
+
+#LPAD用指定的字符实现左填充指定长度
+SELECT LPAD('何书文',2,"*");
+
+#LPAD用指定的字符实现左填充指定长度
+SELECT LPAD('何书文',3,"*");
+
+#LPAD用指定的字符实现左填充指定长度
+SELECT LPAD('何书文',4,"*");
+
+#LPAD用指定的字符实现左填充指定长度
+SELECT LPAD('何书文',6,"*");
+
+#RPAD用指定的字符实现左填充指定长度
+SELECT RPAD('何书文',6,"*");
+
+#REPLACE替换
+SELECT REPLACE('何书文何睿轩','何书文','何睿昂');
+
+#1.四舍五入ROUND
+
+#1.45
+SELECT ROUND(1.45);
+
+#1.65
+SELECT ROUND(1.65);
+
+#-1.45
+SELECT ROUND(-1.45);
+
+#-1.65
+SELECT ROUND(-1.65);
+
