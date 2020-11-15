@@ -151,4 +151,3 @@ FROM employees;
 #ISNULL
 SELECT ISNULL(commission_pct), commission_pct
 FROM employees;
-
