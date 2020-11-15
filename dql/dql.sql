@@ -151,3 +151,9 @@ FROM employees;
 #ISNULL
 SELECT ISNULL(commission_pct), commission_pct
 FROM employees;
+
+#LIKE模糊查询
+SELECT *
+FROM employees
+WHERE department_id 
+LIKE '1__';
