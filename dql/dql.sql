@@ -1,4 +1,3 @@
-
 /*
 1.查询列表可以是:表中的字段、常量值、表达式、函数
 2.查询结果是一个虚拟的表格
@@ -272,16 +271,147 @@ SELECT RPAD('何书文',6,"*");
 SELECT REPLACE('何书文何睿轩','何书文','何睿昂');
 
 #1.四舍五入ROUND
-
-#1.45
 SELECT ROUND(1.45);
-
-#1.65
 SELECT ROUND(1.65);
-
-#-1.45
 SELECT ROUND(-1.45);
-
-#-1.65
 SELECT ROUND(-1.65);
+SELECT ROUND(1.357,2);
+
+#CEIL向正无穷取整，返回>=该参数的最小整数
+SELECT CEIL(1.2);
+
+#FLOOR向下取整
+SELECT FLOOR(2.9);
+SELECT FLOOR(-2.9);
+
+#TRUNCATE保存小数点后4位
+SELECT
+TRUNCATE
+(3.1415926,4); 
+
+#NOW返回当前系统日期+时间
+SELECT NOW();
+
+#CURDATE返回当前日期，不包含时间
+SELECT CURRENT_DATE
+();
+SELECT CURDATE();
+
+#CURTIME返回当前时间，不包含日期
+SELECT CURTIME();
+
+#YEAR
+SELECT YEAR(NOW());
+SELECT YEAR('2020-11-15');
+SELECT YEAR(hiredate)
+FROM employees;
+SELECT MONTH(NOW());
+SELECT MONTHNAME(NOW());
+
+#STR_TO_DATE字符串转日期
+SELECT STR_TO_DATE('2020-11-15','%Y-%m-%d');
+
+#查询入职日期为2020-11-15 15:32:57的员工信息
+SELECT *
+FROM employees
+WHERE hiredate = '2020-11-15 15:32:57';
+
+#查询入职日期为2020-11-15 15:32:57的员工信息
+SELECT *
+FROM employees
+WHERE hiredate = STR_TO_DATE('11-15 2020 15:32:57','%m-%d %Y %H:%i:%s');
+
+#查询入职日期为2020-11-15 15:32:57的员工信息
+SELECT *
+FROM employees
+WHERE hiredate = STR_TO_DATE('11-15 2020 15:32:57','%m-%d %Y %H:%i:%s');
+
+#DATE_FORMAT将日期转换成字符
+SELECT DATE_FORMAT(NOW(),'%Y年%m月%d日');
+
+#查询有奖金的员工名和入职日期xx月/xx日 xx年
+SELECT first_name, DATE_FORMAT(hiredate,'%m/%d %y') AS 入职日期
+FROM employees
+WHERE commission_pct is NOT NULL;
+
+#查询有奖金的员工名和入职日期xx月/xx日 xx年
+SELECT CONCAT(first_name,last_name) AS 员工姓名, DATE_FORMAT(hiredate,'%m/%d %y') AS 入职日期
+FROM employees
+WHERE commission_pct is NOT NULL;
+
+#版本函数
+SELECT VERSION();
+
+#数据库函数
+SELECT DATABASE
+();
+
+#当前用户
+SELECT USER
+();
+
+#流程控制
+#IF函数
+SELECT
+IF(2>1,'大于','小于');
+
+SELECT
+IF(2<1,'大于','小于');
+
+SELECT first_name, commission_pct, 
+IF(commission_pct IS NULL,'没奖金','有奖金')
+FROM employees;
+
+#CASE函数
+/*
+查询员工的工资，要求
+部门号=30，显示的工资为1.1倍
+部门号=40，显示的工资为1.2倍
+部门号=50，显示的工资为1.3倍
+其他部门，显示的工资为原工资
+*/
+SELECT salary 原始工资, department_id,
+    CASE department_id
+WHEN 30 THEN salary*1.1
+WHEN 40 THEN salary*1.2
+WHEN 50 THEN salary*1.3
+ELSE salary
+END AS 新工资
+FROM employees;
+
+/*
+查询员工的工资情况
+如果工资>50000，显示A级别
+如果工资>40000，显示B级别
+如果工资>30000，显示C级别
+否则，显示D级别
+*/
+SELECT first_name, salary, CASE
+WHEN salary>50000 THEN   'A'
+WHEN salary>40000 THEN   'B'
+WHEN salary>30000 THEN   'C'
+ELSE 'D'
+END AS 工资级别
+FROM employees;
+
+-- 分组函数
+-- SUM计算工资之和
+SELECT SUM(salary)
+FROM employees;
+
+-- AVG平均值
+SELECT AVG(salary)
+FROM employees;
+
+-- MIN
+SELECT MIN(salary)
+FROM employees;
+
+-- MAX
+SELECT MAX(salary)
+FROM employees;
+
+-- COUNT
+SELECT COUNT(salary)
+FROM employees;
 
