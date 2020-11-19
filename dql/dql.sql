@@ -415,3 +415,13 @@ FROM employees;
 SELECT COUNT(salary)
 FROM employees;
 
+-- GROUP BY
+-- 查询每个工种的最高工资
+SELECT MAX(salary), job_id
+FROM employees
+GROUP BY job_id;
+
+
+-- HAVING 查询哪个部门的员工个数>2
+SELECT COUNT(*), department_id
+FROM employees
