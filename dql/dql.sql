@@ -425,3 +425,20 @@ GROUP BY job_id;
 -- HAVING 查询哪个部门的员工个数>2
 SELECT COUNT(*), department_id
 FROM employees
+GROUP BY department_id
+HAVING COUNT(*)>2;
+
+-- HAVING查询每个工种有奖金的员工的最高工资>35000的工种编号和最高工资
+SELECT job_id, MAX(salary)
+FROM employees
+WHERE commission_pct IS NOT NULL
+GROUP BY job_id
+HAVING MAX(salary)>35000;
+
+-- 查询领导编号>100的每个领导手下的最低工资>35000的领导编号是哪个，以及其最低工资
+SELECT manager_id, MIN(salary)
+FROM employees
+WHERE manager_id>100
+GROUP BY manager_id
+HAVING MIN(salary)>35000;
+
