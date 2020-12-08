@@ -442,3 +442,4 @@ WHERE manager_id>100
 GROUP BY manager_id
 HAVING MIN(salary)>35000;
 
+-- 
