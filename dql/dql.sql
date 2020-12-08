@@ -442,4 +442,67 @@ WHERE manager_id>100
 GROUP BY manager_id
 HAVING MIN(salary)>35000;
 
--- 
+-- 查询员工姓名
+select ename
+from emp;
+
+-- 查询员工的年薪
+select ename, sal*12
+from emp;
+
+-- 给查询结果重命名
+select ename, sal*12 as yearsal
+from emp;
+
+-- 给查询结果中文重命名
+select ename, sal*12 as '年薪'
+from emp;
+
+-- 给查询结果重命名
+select ename, sal*12 yearsal
+from emp;
+
+-- 查询所有字段
+select *
+from emp;
+
+-- 008.条件查询
+-- 查询工资等于5000的员工名
+select ename, sal
+from emp
+where sal = 5000;
+-- 查询'SMITH'的工资
+select ename, sal
+from emp
+where ename = 'SMITH';
+-- 查询工资大于2000的员工名及其工资和部门编号
+select ename, sal, deptno
+from emp
+where sal > 2000;
+-- 查询工资不等于5000的员工名及其工资
+select ename, sal
+from emp
+where sal <>5000;
+-- 查询工资不等于5000的员工名及其工资
+select ename, sal
+from emp
+where sal !=5000;
+-- 查询工资在1500到5000之间的员工名及其工资[1500,5000]
+select ename, sal
+from emp
+where sal >1500 and sal < 5000;
+select ename, sal
+from emp
+where sal BETWEEN 1500 and 5000;
+
+-- 009.条件查询between and
+-- 查询名字首字母在A到S之间的员工名[A,S)
+select ename
+from emp
+where ename BETWEEN 'A' AND 'S';
+
+-- 010.条件查询is null和is not null
+-- 查询没有提成的员工名
+SELECT ename, comm
+FROM emp
+WHERE comm is NULL;
