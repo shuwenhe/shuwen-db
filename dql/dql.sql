@@ -502,7 +502,21 @@ from emp
 where ename BETWEEN 'A' AND 'S';
 
 -- 010.条件查询is null和is not null
--- 查询没有提成的员工名
+-- 查询提成是NULL的员工名
 SELECT ename, comm
 FROM emp
 WHERE comm is NULL;
+
+-- 查询提成不是NULL的员工名
+SELECT ename, comm
+FROM emp
+WHERE comm is NOT NULL;
+
+-- 查询提成是NULL的员工名
+SELECT ename, comm
+FROM emp
+WHERE comm is NULL or comm=0;
+
+-- 012.and和or的优先级问题
+-- 找出工作岗位是MANAGER和SALESMAN的员工？
+
