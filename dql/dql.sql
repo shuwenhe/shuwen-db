@@ -519,4 +519,119 @@ WHERE comm is NULL or comm=0;
 
 -- 012.and和or的优先级问题
 -- 找出工作岗位是MANAGER和SALESMAN的员工？
+SELECT ename, job
+FROM emp
+WHERE job = 'MANAGER' OR job = 'SALESMAN';
+-- and和or联合起来用：找出薪资大于2000的并且部门编号是10或30部门的员工。
+SELECT ENAME, SAL, DEPTNO
+FROM emp
+WHERE SAL>2000 AND (DEPTNO = 10 OR DEPTNO = 30);
 
+-- 013.条件查询in等同于or 
+-- in等同于or
+-- 找出工作岗位是MANAGER和SALESMAN的员工
+SELECT ename, job
+FROM emp
+WHERE job = "MANAGER" OR job = "SALESMAN";
+-- 
+SELECT ename, job
+FROM emp
+WHERE job in('MANAGER','SALESMAN');
+-- 找出薪资是3000或5000的员工姓名及其工资
+SELECT ename, sal
+FROM emp
+WHERE sal = 3000 or sal = 5000;
+-- 
+SELECT ename, sal
+FROM emp
+WHERE sal in(3000,5000);
+
+-- 找出薪资不是3000或5000的员工姓名及其工资
+SELECT ename, sal
+FROM emp
+WHERE sal not in(3000,5000);
+
+-- 0014.模糊查询like
+-- 找出名字当中含有下划线的员工？
+SELECT ename
+FROM emp
+WHERE ename LIKE '%\_%';
+-- 找出名字当中含有S的员工？
+SELECT ename
+FROM emp
+WHERE ename LIKE '%S%';
+-- 找出名字最后是H的员工姓名?
+SELECT ename
+FROM emp
+WHERE ename LIKE '%H';
+-- 0015.排序(升序、降序)
+-- 查询员工工资按照升序排列？
+SELECT ename, sal
+FROM emp
+ORDER BY sal;
+-- 
+SELECT ename, sal
+FROM emp
+ORDER BY sal ASC;
+
+-- 查询员工工资按照降序排列？
+SELECT ename, sal
+FROM emp
+ORDER BY sal DESC;
+
+-- 
+select ename, sal
+from emp
+order by 2;
+
+-- 找出工作岗位是MANAGER的员工，并且要求按照薪资的降序排列
+SELECT ename, job, sal
+FROM emp
+WHERE job = 'MANAGER'
+ORDER BY sal DESC;
+
+-- 017.分组函数
+-- 工资之和
+SELECT SUM(SAL)
+FROM emp;
+-- 
+SELECT AVG(sal)
+FROM emp;
+-- 
+SELECT MIN(sal)
+FROM emp;
+-- 
+SELECT MAX(sal)
+FROM emp;
+-- 
+SELECT COUNT(*)
+FROM emp;
+-- 
+SELECT COUNT(ename)
+FROM emp;
+
+-- 分组函数自动忽略NULL
+SELECT COUNT(comm)
+FROM emp;
+
+-- ifnull
+SELECT ename, IFNULL(comm,0)
+FROM emp;
+
+-- 计算每个员工年薪
+SELECT ename, (sal+ifnull(comm,0))*12 yearsal
+FROM emp;
+
+-- 018.count函数
+-- 找出工资高于平均工资的员工？
+SELECT ename, sal
+FROM emp
+WHERE SAL>AVG(SAL);
+
+-- 
+SELECT COUNT(*)
+FROM emp;
+
+-- 
+SELECT COUNT(comm)
+FROM emp;
