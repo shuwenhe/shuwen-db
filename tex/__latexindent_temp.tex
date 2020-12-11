@@ -1,0 +1,67 @@
+\documentclass[12pt,oneside,a4paper]{ctexbook} %oneside一面，twiside两面
+\usepackage[centertags]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{newlfont}
+\usepackage{makeidx}
+\usepackage{wasysym}
+\usepackage{geometry}%页边距和页眉页脚
+\usepackage{graphics} %插图
+\usepackage{extarrows}
+\usepackage{amssymb}%因为所以
+\usepackage{titlesec}%TEX标题与正文间距，标题与上下文距离调整
+\usepackage{fancyhdr}%页眉
+\usepackage{ctex}
+\usepackage{listings} % 插入代码
+
+\renewcommand\thesection{\arabic {section}}%去0
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries\center}{\chaptertitlename}{1pt}{\Huge}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[runin]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+\titlespacing*{\chapter} {0pt}{10pt}{10pt}
+\titlespacing*{\section} {0pt}{0.5ex plus 1ex minus .2ex}{0.3ex plus .2ex}
+\titlespacing*{\subsection} {0pt}{0.25ex plus 1ex minus .1ex}{0.5ex plus .1ex}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
+\titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
+\numberwithin{chapter}{part}
+\setlength\parskip{\baselineskip}% 增加空行%
+\geometry{left=2.0cm,right=2.1cm,top=1.5cm,bottom=2.5cm}% 页边距和页眉页脚
+\renewcommand\thesection{\arabic {section}} %目录需要从1-n
+
+\lstset{language=C++}%这条命令可以让LaTeX排版时将C++ 键字突出显示
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{
+    numbers=left,
+    numberstyle= \tiny,
+    keywordstyle= \color{ blue!70},
+    commentstyle= \color{red!50!green!50!blue!50},
+    rulesepcolor= \color{ red!20!green!20!blue!20} ,
+    escapeinside=``, % 英文分号中可写入中文
+    xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+    framexleftmargin=2em,
+}
+
+\begin{document}
+
+\pagestyle{fancy}
+% \lhead{\includegraphics{shuwenedu.png}}
+\chead{shuwen-db}
+% \rhead{\includegraphics{xstiku.png}}
+\lfoot{}
+\rfoot{}
+
+日期:\underline{\hbox to 33mm{\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}\today}}
+\qquad 姓名:\underline{\hbox to 15mm{何书文}} 电话:\underline{\hbox to 22mm{15010729356}} 邮箱:\underline{\hbox to 45mm{1201220707@pku.edu.cn}}
+
+% 
+\section{DQL}
+\begin{enumerate}
+\item 
+\end{enumerate}
+
+\end{document}

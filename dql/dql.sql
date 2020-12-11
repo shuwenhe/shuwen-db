@@ -635,3 +635,83 @@ FROM emp;
 -- 
 SELECT COUNT(comm)
 FROM emp;
+-- 
+SELECT COUNT(*), MAX(sal), MIN(sal), AVG(sal), SUM(sal)
+FROM emp;
+
+-- group by and having
+-- 找出每个工作岗位的最高薪资
+SELECT ename, job, MAX(sal)
+FROM emp
+GROUP BY job;
+
+--子查询
+-- 找出高于平均工资的员工
+-- 平均工资
+SELECT AVG(sal)
+FROM emp;
+-- 高于平均工资的员工
+SELECT ename, sal
+FROM emp
+WHERE sal > 2468.333333;
+-- select中包含select 
+SELECT ename, sal
+FROM emp
+WHERE sal > (SELECT AVG(sal)
+FROM emp);
+-- 当一条语句中有group by时，select后面只能跟分组函数和参与分组的字段
+select ename, max(sal), job
+from emp
+group by job;
+-- 每个工作岗位的平均工资？
+SELECT job, avg(sal)
+FROM emp
+GROUP BY job;
+
+-- 多字段联合分组查询
+-- 找出每个部门不同工作岗位的最高薪资并按照最高工资降序排列？
+SELECT deptno, job, MAX(sal) maxsal
+FROM emp
+GROUP BY deptno,job
+ORDER BY  maxsal desc;
+-- 找出每个部门的最高薪资，要求显示薪资不小于3000的员工并按薪资升序排列？
+SELECT ename, deptno, MAX(sal) maxsal
+FROM emp
+GROUP BY deptno
+HAVING maxsal >=3000
+ORDER BY maxsal ASC;
+-- 效率高
+SELECT ename, deptno, MAX(sal) maxsal
+FROM emp
+WHERE sal >= 3000
+GROUP BY deptno
+ORDER BY maxsal;
+-- 找出每个部门的平均工资，要求显示平均工资大于2200的数据，并按平均工资升序排列？
+SELECT deptno, AVG(sal) avgsal
+FROM emp
+GROUP BY deptno
+HAVING avgsal > 2200
+ORDER BY avgsal ASC;
+-- distinct
+SELECT DISTINCT job
+FROM emp;
+-- 查询每个部门中的工作种类，一个部门中同一个工种只保留一个？
+SELECT DISTINCT deptno, job
+FROM emp
+ORDER BY deptno;
+-- 统计岗位的数量？
+SELECT COUNT(DISTINCT job)
+FROM emp;
+-- 找出每一个员工的部门名称，要求显示员工名和部门名？
+SELECT ename, deptno
+FROM emp;
+-- 
+SELECT dname
+FROM dept;
+-- 
+SELECT ename, dname
+FROM emp, dept;
+
+-- 
+SELECT e.ename, d.dname
+FROM emp e, dept d;
