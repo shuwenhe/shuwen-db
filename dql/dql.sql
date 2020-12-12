@@ -766,3 +766,45 @@ FROM emp e
     ON e.sal BETWEEN s.losal AND s.hisal
     LEFT JOIN emp l
     ON e.mgr = l.empno;
+
+-- 子查询
+-- 找出高于平均工资的员工？
+SELECT e.ename, e.sal
+FROM emp e
+WHERE e.sal > (SELECT AVG(e2.sal)
+FROM emp e2);
+
+-- from后面嵌套子查询
+-- 找出每个部门平均薪水的薪资等级？
+-- 第一步：找出每个部门的平均薪资？() t
+SELECT e.deptno, AVG(e.sal) asal
+FROM emp e
+GROUP by e.deptno
+-- 第二步：与薪资等级表联合查询
+SELECT deptno, t.avgsal, s.grade
+FROM
+    (SELECT e.deptno, AVG(e.sal) avgsal
+    FROM emp e
+    GROUP by e.deptno) t
+    JOIN salgrade s
+    ON t.avgsal BETWEEN s.losal AND s.hisal;
+
+-- 找出每个部门平均的薪水等级？
+-- First: 找出每个员工的薪水等级 () t
+SELECT e.ename, e.sal, e.deptno, s.grade
+FROM emp e
+    JOIN salgrade s
+    ON e.sal 
+    BETWEEN s.losal AND s.hisal;
+-- Second:基于以上结果，继续按照deptno分组，求grade平均值。
+SELECT e.ename, e.sal, e.deptno, AVG(s.grade) avggrade
+FROM emp e
+    JOIN salgrade s
+    ON e.sal 
+    BETWEEN s.losal AND s.hisal
+GROUP BY deptno
+ORDER BY avggrade;
+
+-- SELECT后面嵌套子查询
+-- 查询每个员工所在的部门名称，要求显示员工名和部门名？
+
