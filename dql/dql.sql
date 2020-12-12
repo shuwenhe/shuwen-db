@@ -807,4 +807,13 @@ ORDER BY avggrade;
 
 -- SELECT后面嵌套子查询
 -- 查询每个员工所在的部门名称，要求显示员工名和部门名？
-
+-- 方法一
+SELECT e.ename, d.dname
+FROM emp e
+    JOIN dept d
+    ON e.deptno = d.deptno;
+-- 方法二
+SELECT e.ename, (SELECT d.dname
+    FROM dept d
+    WHERE e.deptno = d.deptno ) dname
+FROM emp e;
