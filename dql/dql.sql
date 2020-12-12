@@ -712,6 +712,57 @@ FROM dept;
 SELECT ename, dname
 FROM emp, dept;
 
--- 
+-- 查询每一个员工的部门名称，要求显示员工名和部门名？ 
 SELECT e.ename, d.dname
-FROM emp e, dept d;
+FROM emp e, dept d
+WHERE e.deptno = d.deptno;
+-- join on
+SELECT e.ename, d.dname
+FROM emp e JOIN dept d ON e.deptno = d.deptno;
+
+-- join on
+SELECT e.ename, d.dname
+FROM emp e INNER JOIN dept d ON e.deptno = d.deptno;
+
+-- 非等值连接
+-- 查询每个员工的工资等级，要求显示员工名、工资、工资等级。
+SELECT e.ename, e.sal, s.grade
+FROM emp e JOIN salgrade s ON e.sal BETWEEN s.losal AND s.hisal;
+
+-- 查询每个员工的工资等级，要求显示员工名、工资、工资等级。
+SELECT e.ename, e.sal, s.grade
+FROM emp e INNER JOIN salgrade s ON e.sal BETWEEN s.losal AND s.hisal;
+
+-- 自连接
+-- 查询每个员工的上级领导，要求显示员工名、员工号和对应的领导名、领导号
+SELECT a.ename, a.empno, a.mgr, b.ename, b.empno
+FROM emp a JOIN emp b ON a.mgr = b.empno;
+
+-- 找出每个员工的员工名及上级领导名
+SELECT a.ename 'emp', b.ename 'leader'
+FROM emp a LEFT JOIN emp b ON a.mgr = b.empno;
+
+-- 找出每个员工的员工名及上级领导名
+SELECT a.ename 'emp', b.ename 'leader'
+FROM emp b RIGHT JOIN emp a ON a.mgr = b.empno;
+
+-- 找出哪个部门没有员工？
+SELECT d.deptno
+FROM dept d LEFT JOIN emp e ON d.deptno = e.deptno
+WHERE e.deptno is NULL;
+
+-- 查询每一个员工的员工名、部门名称及其工资等级。
+SELECT e.ename, d.dname, s.grade
+FROM emp e
+    JOIN dept d
+    ON e.deptno = d.deptno
+    JOIN salgrade s
+    ON e.sal BETWEEN s.losal AND s.hisal;
+
+-- 查询每一个员工的部门名称、工资等级、以及上级领导？ 
+SELECT e.ename, e.sal, s.grade, l.ename leader
+FROM emp e
+    JOIN salgrade s
+    ON e.sal BETWEEN s.losal AND s.hisal
+    LEFT JOIN emp l
+    ON e.mgr = l.empno;
