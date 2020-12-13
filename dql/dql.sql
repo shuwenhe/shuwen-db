@@ -817,3 +817,81 @@ SELECT e.ename, (SELECT d.dname
     FROM dept d
     WHERE e.deptno = d.deptno ) dname
 FROM emp e;
+
+-- 9.union联合查询
+-- 找出工作岗位是SALEMAN和MANAGER的员工？
+SELECT ename, job
+FROM emp
+WHERE job = 'SALESMAN' OR job = 'MANAGER';
+
+-- 找出工作岗位是SALEMAN和MANAGER的员工？
+SELECT ename, job
+FROM emp
+WHERE job IN('SALESMAN','MANAGER');
+
+-- union
+-- 找出工作岗位是SALEMAN和MANAGER的员工？
+    SELECT ename, job
+    FROM emp
+    WHERE job = 'SALESMAN'
+UNION
+    SELECT ename, job
+    FROM emp
+    WHERE job = 'MANAGER';
+
+-- 两张不相干的表中的数据拼接在一起显示？
+    SELECT ename
+    FROM emp
+UNION
+    SELECT dname
+    FROM dept;
+
+-- 
+    SELECT ename, sal
+    FROM emp
+UNION
+    SELECT dname
+    FROM dept;
+
+-- 10.limit
+-- 取出工资前5名的员工？
+SELECT ename, sal
+FROM emp
+ORDER BY sal DESC
+limit 0,5;
+
+-- 取出工资前5名的员工？
+SELECT ename
+, sal
+FROM emp
+ORDER BY sal DESC
+limit 5;
+
+-- 找出工资在第4名到第9名的员工？
+SELECT ename, sal
+FROM emp
+ORDER BY sal DESC
+limit 3,6;
+
+-- 2.DDL
+-- create
+CREATE TABLE 表名
+(
+    field1 TYPE,
+    field2 TYPE,
+    field3 TYPE,
+);
+
+-- 创建学生表
+CREATE TABLE s_student
+(
+    no BIGINT ,
+    name VARCHAR(255),
+    sex CHAR(1),
+    classno VARCHAR(255),
+    birth char(10)
+);
+-- 插入语句
+INSERT INTO s_student
+    (no,name,sex,classno,birth)
+VALUES(1, 'ShuwenHe', 'Man', 1, 1997-07-01);
